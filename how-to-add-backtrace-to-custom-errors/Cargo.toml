@@ -1,9 +1,0 @@
-[package]
-name = "how-to-add-backtrace-to-custom-errors"
-version = "0.1.0"
-edition = "2021"
-
-[dependencies]
-anyhow = { version = "1.0.70", features = ["backtrace"] } # `backtrace` feature is necessary to embed backtrace in anyhow::Error
-snafu = { version = "0.7.4", features = ["backtraces"] }
-thiserror = "1.0.40"
