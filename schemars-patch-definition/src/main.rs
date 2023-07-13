@@ -40,9 +40,9 @@ fn my_validation(gen: &mut schemars::gen::SchemaGenerator) -> schemars::schema::
 
 // マクロ版
 macro_rules! validator {
-    ($name:ident, $rule:expr, $message:expr) => {
+    ($name:ident, $type:ident, $rule:expr, $message:expr) => {
         fn $name(gen: &mut schemars::gen::SchemaGenerator) -> schemars::schema::Schema {
-            let mut schema = gen.subschema_for::<i64>().into_object().clone();
+            let mut schema = gen.subschema_for::<$type>().into_object().clone();
             schema.extensions = [(
                 "x-kubernetes-validations".to_string(),
                 json!([{"rule": $rule, "message": $message}]),
@@ -56,6 +56,7 @@ macro_rules! validator {
 
 validator!(
     my_validation_by_macro,
+    i64,
     "self.start < self.end",
     "start must be less than end"
 );
